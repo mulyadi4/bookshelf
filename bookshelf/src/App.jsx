@@ -62,37 +62,48 @@ function App() {
     book.title.toLowerCase().includes(search.toLowerCase())
   )
 
+  const searchResults = search.trim() ? filteredBooks : []
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="border-b border-white/10 bg-slate-900/80 backdrop-blur">
-        <div className="mx-auto max-w-5xl px-4 py-6">
+    <div className="min-h-screen bg-linear-to-b from-slate-950 to-slate-900 text-slate-100">
+      <header className="border-b border-white/10 bg-slate-950/70 backdrop-blur">
+        <div className="mx-auto max-w-6xl px-4 py-6">
           <h1 className="text-3xl font-bold tracking-tight text-white">
             Bookshelf App
           </h1>
+          <p className="mt-1 text-sm text-slate-400">
+            Simpan, cari, edit, dan kelola buku dengan tampilan yang lebih rapi.
+          </p>
         </div>
       </header>
 
-      <main className="mx-auto grid max-w-5xl gap-6 px-4 py-6">
+      <main className="mx-auto max-w-6xl px-4 py-8">
         <div className="grid gap-6 lg:grid-cols-2">
           <BookForm addBook={handleAdd} />
-          <SearchBook search={search} onSearch={setSearch} />
+          <SearchBook
+            search={search}
+            onSearch={setSearch}
+            results={searchResults}
+          />
         </div>
 
-        <BookList
-          title="Belum selesai dibaca"
-          books={filteredBooks.filter((book) => !book.isComplete)}
-          onToggle={handleToggle}
-          onDelete={handleDelete}
-          onEdit={handleEditOpen}
-        />
+        <div className="mt-6 grid gap-6">
+          <BookList
+            title="Belum selesai dibaca"
+            books={filteredBooks.filter((book) => !book.isComplete)}
+            onToggle={handleToggle}
+            onDelete={handleDelete}
+            onEdit={handleEditOpen}
+          />
 
-        <BookList
-          title="Selesai dibaca"
-          books={filteredBooks.filter((book) => book.isComplete)}
-          onToggle={handleToggle}
-          onDelete={handleDelete}
-          onEdit={handleEditOpen}
-        />
+          <BookList
+            title="Selesai dibaca"
+            books={filteredBooks.filter((book) => book.isComplete)}
+            onToggle={handleToggle}
+            onDelete={handleDelete}
+            onEdit={handleEditOpen}
+          />
+        </div>
 
         <EditBook
           isOpen={isEditOpen}

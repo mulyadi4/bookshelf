@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-function EditBook({ book, isOpen, onClose, onSave }) {
+function EditBook({ isOpen, book, onClose, onSave }) {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [year, setYear] = useState('')
@@ -19,7 +19,6 @@ function EditBook({ book, isOpen, onClose, onSave }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
     onSave(book.id, {
       ...book,
       title: title.trim(),
@@ -30,45 +29,50 @@ function EditBook({ book, isOpen, onClose, onSave }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
-      <div className="w-full max-w-lg rounded-2xl bg-slate-900 p-6 shadow-2xl border border-white/10">
-        <h2 className="text-xl font-semibold text-white">Edit Buku</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
+      <div className="w-full max-w-lg rounded-3xl border border-white/10 bg-slate-900 p-6 shadow-2xl">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-semibold text-white">Edit Buku</h2>
+            <p className="mt-1 text-sm text-slate-400">Ubah data buku di sini.</p>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-xl bg-slate-800 px-3 py-2 text-sm text-slate-200 transition hover:bg-slate-700"
+          >
+            X
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit} className="mt-5 space-y-4">
-          <div>
-            <label className="mb-1 block text-sm text-slate-300">Judul</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-slate-100 outline-none"
-              required
-            />
-          </div>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none"
+            placeholder="Judul"
+            required
+          />
+          <input
+            type="text"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none"
+            placeholder="Penulis"
+            required
+          />
+          <input
+            type="number"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none"
+            placeholder="Tahun"
+            required
+          />
 
-          <div>
-            <label className="mb-1 block text-sm text-slate-300">Penulis</label>
-            <input
-              type="text"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-slate-100 outline-none"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="mb-1 block text-sm text-slate-300">Tahun</label>
-            <input
-              type="number"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-slate-100 outline-none"
-              required
-            />
-          </div>
-
-          <label className="flex items-center gap-3 text-sm text-slate-300">
+          <label className="flex items-center gap-3 rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-300">
             <input
               type="checkbox"
               checked={isComplete}
@@ -78,16 +82,10 @@ function EditBook({ book, isOpen, onClose, onSave }) {
           </label>
 
           <div className="flex gap-3 pt-2">
-            <button
-              type="button"
-              onClick={onClose}
-              className="rounded-xl bg-slate-700 px-4 py-2 text-white"
-            >
-              Batal
-            </button>
+
             <button
               type="submit"
-              className="rounded-xl bg-indigo-600 px-4 py-2 text-white"
+              className="flex-1 rounded-2xl bg-indigo-600 px-4 py-3 font-medium text-white transition hover:bg-indigo-500"
             >
               Simpan
             </button>

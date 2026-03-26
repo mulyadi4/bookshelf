@@ -9,15 +9,13 @@ function BookForm({ addBook }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    const newBook = {
+    addBook({
       id: Date.now(),
-      title,
-      author,
+      title: title.trim(),
+      author: author.trim(),
       year: Number(year),
       isComplete,
-    }
-
-    addBook(newBook)
+    })
 
     setTitle('')
     setAuthor('')
@@ -26,13 +24,18 @@ function BookForm({ addBook }) {
   }
 
   const inputClass =
-    'mt-1 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30'
+    'mt-1 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30'
 
   return (
-    <section className="rounded-2xl border border-white/10 bg-slate-900 p-6 shadow-lg shadow-black/20">
-      <h2 className="text-xl font-semibold text-white">Tambah buku baru</h2>
+    <section className="rounded-3xl border border-white/10 bg-slate-900 p-6 shadow-2xl shadow-black/20">
+      <div className="mb-5">
+        <h2 className="text-xl font-semibold text-white">Tambah buku baru</h2>
+        <p className="mt-1 text-sm text-slate-400">
+          Isi data buku lalu simpan ke daftar.
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="title" className="text-sm font-medium text-slate-300">
             Judul
@@ -42,6 +45,7 @@ function BookForm({ addBook }) {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            placeholder="Masukkan judul buku"
             required
             className={inputClass}
           />
@@ -56,6 +60,7 @@ function BookForm({ addBook }) {
             type="text"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
+            placeholder="Masukkan nama penulis"
             required
             className={inputClass}
           />
@@ -70,12 +75,13 @@ function BookForm({ addBook }) {
             type="number"
             value={year}
             onChange={(e) => setYear(e.target.value)}
+            placeholder="Contoh: 2024"
             required
             className={inputClass}
           />
         </div>
 
-        <label className="flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-300">
+        <label className="flex cursor-pointer items-center gap-3 px-4 py-3 text-sm text-slate-300">
           <input
             id="complete"
             type="checkbox"
@@ -88,7 +94,7 @@ function BookForm({ addBook }) {
 
         <button
           type="submit"
-          className="inline-flex w-full items-center justify-center rounded-xl bg-indigo-600 px-4 py-2.5 font-medium text-white transition hover:bg-indigo-500"
+          className="w-full rounded-2xl bg-indigo-600 px-4 py-3 font-semibold text-white transition hover:bg-indigo-500 active:scale-[0.99]"
         >
           Simpan Buku
         </button>
