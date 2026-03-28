@@ -1,10 +1,11 @@
 const BASE_URL = 'http://localhost:9000'
 
+
 export async function getBooks() {
   const res = await fetch(`${BASE_URL}/books`)
-  return await res.json()
+  const data = await res.json()
+  return data.data.books
 }
-
 
 export async function addBook(book) {
   await fetch(`${BASE_URL}/books`, {
@@ -31,6 +32,4 @@ export async function deleteBook(id) {
     method: 'DELETE',
   })
 }
-
-
 
